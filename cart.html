@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon 2.0</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-firestore.js"></script>
+    <script src="./firebase.js"></script>
+    <script src="./header.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jdenticon@3.1.0/dist/jdenticon.min.js" async
+        integrity="sha384-VngWWnG9GS4jDgsGEUNaoRQtfBGiIKZTiXwm9KpgAeaRn6Y/1tAFiyXqSzqC8Ga/"
+        crossorigin="anonymous">
+    
+    </script>
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <script src="./cart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="bg-white w-full">
+        <div class="header h-16 bg-gray-900 flex items-center">
+            <div class="logo w-1/5 h-16 ml-10 ">
+                <a href="./index.html">
+                    <img class="w-28 h-16 object-contain"   src="https://www.pinclipart.com/picdir/big/57-576184_view-our-amazon-storefront-amazon-logo-white-png.png" >
+                </a>
+            </div>
+            <input class="h-9 w-30 bg-gray-800 border border-gray-500 border-opacity-75 rounded-l-xl px-3 text-white ml-6 focus:outline-none placeholder-white" id="search" type="text" placeholder="Search...">
+            <div class="categories h-9 w-30 bg-gray-800 border border-gray-500 border-opacity-75 px-3 text-white flex items-center ">
+                categories
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </div>
+            <div class="search-icon h-9 w-10 bg-yellow-500 rounded-r-xl flex justify-center items-center text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+            </div>
+            <!-- Right Icons -->
+            <div class="icons text-white flex items-center ml-auto mr-8 w-48 h-16 justify-around" >
+                <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                  </svg>
+                  <!-- Cart Icon -->
+                  <div class="relative cart-icon h-10 w-10 bg-yellow-500 flex items-center justify-center rounded-xl">
+                    <div class="cart-item-number text-gray-800 text-xs absolute -top-1 -right-1 h-4 w-4 bg-white rounded-full flex justify-center items-center"></div>
+                    <svg class="h-4 w-4 text-gray-600" xmlns="http://owww.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                      </svg>
+                  </div>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                  </svg>
+                  <svg class="rounded h-12 w-12" data-jdenticon-value="Jessy"></svg>
+            </div>
+        </div>
+        <div class="main h-screen flex">
+            <div class="hidden md:block border-t-2 border-gray-700 main-sidebar w-1/5 bg-gray-900 p-6">
+                <div class="sidebar-categories">
+                    <div class="sidebar-main-category text-yellow-500 cursor-pointer flex font-bold p-2 bg-gray-700 rounded-lg">
+                        <span class="w-8">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                            </svg>
+                        </span>
+                        <span>Categories</span>
+                    </div>
+                    <div class="sidebar-main-category text-white cursor-pointer flex font-bold p-2">
+                        <span class="w-8"></span>
+                        <span>Echo and Alexa</span>
+                    </div>
+                    <div class="sidebar-main-category text-white cursor-pointer flex font-bold p-2">
+                        <span class="w-8"></span>
+                        <span>Kindle</span>
+                    </div>
+                    <div class="sidebar-main-category text-white cursor-pointer flex font-bold p-2">
+                        <span class="w-8"></span>
+                        <span>Books</span>
+                    </div>
+                    <div class="sidebar-main-category text-white cursor-pointer flex font-bold p-2 mb-2">
+                        <span class="w-8"></span>
+                        <span>Electronics</span>
+                    </div>
+                    <div class="sidebar-main-category text-white cursor-pointer flex font-bold p-2">
+                        <span class="w-8"></span>
+                        <span>Home and Garden</span>
+                    </div>
+                    <div class="sidebar-main-category text-white cursor-pointer flex font-bold p-2">
+                        <span class="w-8"></span>
+                        <span>Fashion</span>
+                    </div>
+                    <div class="sidebar-main-category text-white cursor-pointer flex font-bold p-2 hover:bg-gray-700 rounded-xl mb-4">
+                        <span class="w-8">
+                            <i class="fas fa-percent"></i>
+                        </span>
+                        <span>Sell on Amazon</span>
+                    </div>
+                    <div class="sidebar-main-category text-white cursor-pointer flex font-bold p-2 hover:bg-gray-700 rounded-xl ">
+                        <span class="w-8">
+                            <i class="far fa-question-circle"></i>
+                        </span>
+                        <span>Help</span>
+                    </div>
+                </div>
+            </div>
+            <div class="main-section flex-1 p-6 bg-white">
+                <h1 class="font-bold text-gray-400 text-3xl mb-6">Shopping Cart</h1>
+                <div class="font-bold text-gray-400 table-titles flex">
+                    <h2 class="flex-grow">Product</h2>
+                    <h2 class="w-48">Count</h2>
+                    <h2 class="w-48">Total Cost</h2>
+                    <span class="w-10"></span>
+                </div>
+                <div class="cart-items mt-5">
+                    <div class="cart-item flex items-center pb-4 border-b-2 border-gray-100 ">
+                        <div class="cart-item-image w-40 h-34 bg-white -4 rounded-lg">
+                            <img class="w-full h-full  object-contain" src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSrA73oz5aCuLpb1C1x1CpAkti3cyEcYUmq1WYyDL4vgeT29FXUR7CKrADQSR5EVlBj8vSS2EIUiw&usqp=CAc" alt="">
+                        </div>
+                  
+                        <div class="cart-item-details flex-grow">
+                            <div class="cart-item-title font-bold text-sm text-gray-600">
+                                Apple Macbook Pro 13,3 <br> <br>
+                            </div>
+                            <div class="cart-item-brand font-bold text-sm text-gray-400">
+                                 Apple 
+                            </div>
+                            
+                        
+                        </div>
+                        <div class="cart-item-counter w-48 flex items-center">
+
+                            <div class="chevron-left cursor-pointer text-gray-400 bg-gray-100 rounded-xl justify-center items-center hover:bg-gray-200 mr-2">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </div>
+
+                            <h4 class="text-gray-400">x1</h4>
+
+                            <div class="chevron-right">
+                                <i class="fa-solid fa-chevron-right justify-center items-center cursor-pointer text-gray-400 bg-gray-100 rounded-xl hover:bg-gray-200 ml-2"></i>
+                            </div>
+                            
+                            
+                        </div>
+
+                        <div class="cart-item-total-cost w-48 font-bold text-gray-400">
+                            Rs 1,00,588
+                            
+                        </div>
+                        <div class="cart-item-delete w-10 font-bold text-gray-400 cursor-pointer hover:text-gray-700">
+                            <i class="fa-duotone fa-square-xmark"></i>
+                            
+                        </div>
+
+                    </div>
+
+                    
+                <div class="cart-item flex items-center pb-4 border-b-2 border-gray-100 ">
+                    <div class="cart-item-image w-40 h-34 bg-white -4 rounded-lg">
+                        <img class="w-full h-full  object-contain" src="data:image/jpeg;base64,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" alt="">
+                    </div>
+              
+                    <div class="cart-item-details flex-grow">
+                        <div class="cart-item-title font-bold text-sm text-gray-600">
+                            Nintendo Play (2023 version) <br> <br>
+                        </div>
+                        <div class="cart-item-brand font-bold text-sm text-gray-400">
+                             Nintendo
+                        </div>
+                        
+                    
+                    </div>
+                    <div class="cart-item-counter w-48 flex items-center">
+
+                        <div class="chevron-left cursor-pointer text-gray-400 bg-gray-100 rounded-xl justify-center items-center hover:bg-gray-200 mr-2">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </div>
+
+                        <h4 class="text-gray-400">x1</h4>
+
+                        <div class="chevron-right">
+                            <i class="fa-solid fa-chevron-right justify-center items-center cursor-pointer text-gray-400 bg-gray-100 rounded-xl hover:bg-gray-200 ml-2"></i>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                   
+                </div>
+              
+
+
+
+                    <div class="cart-item-total-cost w-48 font-bold text-gray-400">
+                        Rs 4,555
+                        
+                    </div>
+                    <div class="cart-item-delete w-10 font-bold text-gray-400 cursor-pointer hover:text-gray-700">
+                        <i class="fa-duotone fa-square-xmark"></i>
+                        
+                    </div>
+
+                </div>
+                
+                <div class="complete-order flex justify-end mt-10">
+                    <div class="total-cost mr-7">
+                        <h2 class="text-gray-400">Total Cost</h2>
+                        <div class="total-cost-number text-gray-600 font-bold total-cost-number text-3xl">
+                            Rs 5032
+                        </div>
+                    </div>
+                    <div class="complete-order-button w-56 flex items-center justify-center bg-yellow-500 rounded text-white cursor-pointer hover:bg-yellow-600" >
+                        Complete Order
+                    </div>
+                </div>
+            </div>
+            
+           
+
+            
+        </div>
+    </div>
+        </div> 
+    </div>
+</body>
+</html>
